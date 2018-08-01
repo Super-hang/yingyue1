@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 640px;
+            margin: 50px auto;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            width: 77px;
+            height: 40px;
+            float: left;
+            position: relative;
+            border: 1px solid #ccc;
+            margin-left: -1px;
+            overflow: hidden;
+        }
+
+        span {
+            top: 0;
+            left: 0;
+            width: 77px;
+            height: 40px;
+            position: absolute;
+            line-height: 40px;
+            text-align: center;
+            z-index: 99;
+        }
+
+        i {
+            position: absolute;
+            width: 77px;
+            height: 40px;
+            top: 40px;
+            left: 0;
+        }
+        .clearfix{
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <ul>
+        <li><span>1</span><i></i></li>
+        <li><span>2</span><i></i></li>
+        <li><span>3</span><i></i></li>
+        <li><span>4</span><i></i></li>
+        <li><span>5</span><i></i></li>
+        <li><span>6</span><i></i></li>
+        <li><span>7</span><i></i></li>
+        <li><span>8</span><i></i></li>
+    </ul>
+    <div class="clearfix"></div>
+    <p>
+        欢乐颂
+        3345 5432 1123 322-
+
+        3345 5432 1123 211-
+
+        2231 2 34 31 2 34 32 12(5)3
+
+        3345 54 34 2 1123 211-
+    </p>
+
+    <p>
+        小星星
+        1 1 5 5 6 6 5－ 4 4 3 3 2 2 1－
+
+        5 5 4 4 3 3 2－ 5 5 4 4 3 3 2－
+
+        1 1 5 5 6 6 5－ 4 4 3 3 2 2 1－
+    </p>
+
+    <p>
+        生日快乐
+        55 65 87- 55 65 87-
+
+        55 53 176- 44 31 21-
+    </p>
+
+    <p>
+        我是一个粉刷匠
+        5353531 24325 5353531 24321
+
+        2244315 24325 5353531 24321
+    </p>
+    <p style="color: #00a600">小键盘对应： 1-8。键盘对应：a s d f j k l ；鼠标对应：划过..</p>
+</div>
+<audio src="m/1.mp3"></audio>
+<audio src="m/2.mp3"></audio>
+<audio src="m/3.mp3"></audio>
+<audio src="m/4.mp3"></audio>
+<audio src="m/5.mp3"></audio>
+<audio src="m/6.mp3"></audio>
+<audio src="m/7.mp3"></audio>
+<audio src="m/8.mp3"></audio>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script>
+    var arr = ['red', '#AC4DAD', 'orange', 'pink', 'green', 'skyblue', 'yellow', 'blue'];
+    var audios = document.querySelectorAll('audio');
+    $('i').each(function (index, i) {
+        $(i).css('background', arr[index])
+    });
+    $('li').hover(function () {
+        var index = $(this).index();
+        audios[index].load();
+        audios[index].play();
+        $('i').eq(index).stop().animate({top: 0}, 300);
+    }, function () {
+        var index = $(this).index();
+        $('i').eq(index).stop().animate({top: 40}, 300);
+    });
+    //////for循环问题
+//    var music=[65,83,68,70,74,75,76,186];
+//    var a=0;
+//    $(window).on('keydown',function(e){
+//      for(var i=0;i<audios.length;i++){
+//          if(e.keyCode===music[i]){
+//              audios[i].load();
+//              audios[i].play();
+//              a=i;
+//              $('i').eq(i).stop().animate({top: 0}, 300);
+//              console.log(i);
+//              setTimeout(function(){
+//                  console.log(a);
+//                  $('i').eq(a).stop().animate({top: 40}, 300);
+//              },300)
+//          }
+//      }
+//    });
+    ////字母键控制
+    $(window).on('keydown', function (e) {
+        function fn(num, inde) {
+            if (e.keyCode === num) {
+                audios[inde].load();
+                audios[inde].play();
+                $('i').eq(inde).trigger('mouseenter');
+                setTimeout(function () {
+                    $('i').eq(inde).trigger('mouseleave');
+                }, 300);
+            }
+        }
+     fn(65,0); fn(83,1);  fn(68,2); fn(70,3);  fn(74,4); fn(75,5);  fn(76,6); fn(186,7);////z字母键
+     fn(97,0); fn(98,1);  fn(99,2); fn(100,3);  fn(101,4); fn(102,5);  fn(103,6); fn(104,7);////小键盘
+    });
+
+
+</script>
+</body>
+</html>
